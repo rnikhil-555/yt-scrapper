@@ -1,0 +1,76 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Node environment
+node_modules/
+.build/
+.tmp/
+.temp/
+
+# dotenv environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Output of npm build process
+dist/
+build/
+public/
+.DS_Store
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# IDE Specific files
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+*.temp
+*.out
+
+# npm / Yarn lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Testing related files
+coverage/
+.nyc_output/
+
+# Debugging files
+*.tgz
+*.log
+*.log.*
+
+# Config
+config/local.js
+
+# Mac specific files
+*.DS_Store
+
+# Misc
+*.log
+*.gz
+*.zip
+*.tar
+*.rar
+*.log
