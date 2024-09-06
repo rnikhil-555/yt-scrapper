@@ -4,7 +4,7 @@ import { JSDOM } from "jsdom";
 import { Innertube, UniversalCache } from "youtubei.js";
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Helper function to extract YouTube video ID from various URL formats
 function extractVideoId(url) {
@@ -81,24 +81,53 @@ app.get("/decipher", async (req, res) => {
 		const info = await innertube.getBasicInfo(videoId);
 
 		// Extract all available formats from the video information
-		const allFormats = info.streaming_data.adaptive_formats;
+		const allFormats = [
+			...info.streaming_data.adaptive_formats,
+			...info.streaming_data.formats,
+		];
 
 		// Decipher URLs for all formats
 		const decipheredUrls = allFormats.map((format) => {
 			try {
 				const url = format.decipher(innertube.session.player);
-				return { ...format, url };
+				const hasVideo = format.has_video; // Check if format includes video
+				const hasAudio = format.has_audio; // Check if format includes video
+
+				return {
+					itag: format.itag,
+					qualityLabel: format.has_video
+						? format.quality_label
+						: format.audio_quality,
+					container: format.container,
+					size: format.content_length
+						? (Number(format.content_length) / (1024 * 1024)).toFixed(2) + " MB"
+						: "N/A",
+					type: format.has_video ? "video" : "audio",
+					is60fps: format.fps == 60,
+					url,
+					hasVideo,
+					hasAudio,
+				};
 			} catch (error) {
 				console.error(`Error deciphering format ${format.itag}:`, error);
-				return { format: format.itag, url: null };
+				return {
+					itag: format.itag,
+					qualityLabel: format.quality_label || "Audio only",
+					container: format.container,
+					size: "N/A",
+					type: "unknown",
+					is60fps: false,
+					url: null,
+				};
 			}
 		});
 
 		// Prepare response with video title, thumbnail, and deciphered URLs
 		const response = {
 			title: info.basic_info.title,
+			duration: info.basic_info.duration,
 			thumbnail: info.basic_info.thumbnail[0].url,
-			decipheredUrls,
+			formats: decipheredUrls,
 		};
 
 		// Send the response
