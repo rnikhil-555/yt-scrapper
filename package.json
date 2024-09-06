@@ -15,6 +15,7 @@
 		"bgutils-js": "^2.0.1",
 		"express": "^4.19.2",
 		"jsdom": "^25.0.0",
+		"nodemon": "^3.1.4",
 		"puppeteer": "^23.3.0",
 		"youtubei.js": "^10.4.0"
 	}
