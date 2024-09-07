@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: your-app-name
+    name: ytdl
     env: node
     buildCommand: npm install
-    startCommand: node index.js
+    startCommand: nodemon index.js
     envVars:
       - key: NODE_VERSION
         value: 14
