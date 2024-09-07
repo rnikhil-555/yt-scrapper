@@ -214,7 +214,7 @@ app.post("/convert", async (req, res) => {
       console.log("File doesn't exist, proceeding with download and upload");
     }
 
-    tempFilePath = path.join(__dirname, "temp", wasabiKey);
+    tempFilePath = path.join(__dirname, "temp", outputFileName);
 
     // Ensure temp directory exists
     if (!fs.existsSync(path.dirname(tempFilePath))) {
