@@ -2,7 +2,7 @@ services:
   - type: web
     name: ytdl
     env: node
-    buildCommand: npm install
+    buildCommand: node -v && npm install
     startCommand: nodemon index.js
     envVars:
       - key: NODE_VERSION
