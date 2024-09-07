@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 5000
 
 # Start the app
-CMD ["nodemon", "index.js"]
+CMD ["node", "index.js"]
